@@ -74,7 +74,7 @@ void popula_campo(){
 				}else if(y>0 && x == 0){
 					campo[y][x] = numeros[y - 1];
 				}else{
-					if(campo[y][x] == "X " || campo[y][x] == NULL){
+					if(campo[y][x] == "X " || campo[y][x] == ""){
 						campo[y][x] = "X ";
 					}
 				}
@@ -114,7 +114,11 @@ void cria_embarcacoes(){
 				}
 			}
 			if(positive){
-				lado = 0;
+				for(int y=1; y<embarcacoes[i].tamanho; y++){
+					campo[inicioY][inicioX + 1] = embarcacoes[i].img[y];
+				}
+				popula_campo();
+				desenha_campo();
 			}
 			
 			// Verifica os campos para ESQUERDA
@@ -127,7 +131,11 @@ void cria_embarcacoes(){
 			}
 			
 			if(positive){
-				lado = 1;
+				for(int y=1; y<embarcacoes[i].tamanho; y++){
+					campo[inicioY][inicioX - 1] = embarcacoes[i].img[y];
+				}
+				popula_campo();
+				desenha_campo();
 			}
 			
 			
@@ -141,7 +149,11 @@ void cria_embarcacoes(){
 			}
 			
 			if(positive){
-				lado = 2;
+				for(int y=1; y<embarcacoes[i].tamanho; y++){
+					campo[inicioY + 1][inicioX] = embarcacoes[i].img[y];
+				}
+				popula_campo();
+				desenha_campo();
 			}
 			
 			// Verifica os campos para BAIXO
@@ -154,44 +166,13 @@ void cria_embarcacoes(){
 			}
 			
 			if(positive){
-				lado = 2;
-			}
-			
-			if(positive){
-				switch(lado){
-					case 0:
-						for(int y=1; y<embarcacoes[i].tamanho; y++){
-							campo[inicioY][inicioX + 1] = embarcacoes[i].img[y];
-						}
-						desenha_campo();
-						break;
-					case 1:
-						for(int y=1; y<embarcacoes[i].tamanho; y++){
-							campo[inicioY][inicioX - 1] = embarcacoes[i].img[y];
-						}
-						desenha_campo();
-						break;
-					case 2:
-						for(int y=1; y<embarcacoes[i].tamanho; y++){
-							campo[inicioY + 1][inicioX] = embarcacoes[i].img[y];
-						}
-						desenha_campo();
-						break;
-					case 3:
-						for(int y=1; y<embarcacoes[i].tamanho; y++){
-							campo[inicioY - 1][inicioX + 1] = embarcacoes[i].img[y];
-						}
-						desenha_campo();
-						break;
+				for(int y=1; y<embarcacoes[i].tamanho; y++){
+					campo[inicioY - 1][inicioX + 1] = embarcacoes[i].img[y];
 				}
-				
+				popula_campo();
 				desenha_campo();
-				cout << "E positivo\n";
-				
-			}else{
-				cout << "Nao e positivo\n";
 			}
-			
+
 			cout << "E vazio o primeiro\n";
 		}else{
 			cout << "Nao e vazio o primeiro\n";
